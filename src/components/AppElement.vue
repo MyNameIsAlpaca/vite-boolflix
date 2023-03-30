@@ -25,7 +25,7 @@ export default {
       } else{
         return 'https://image.tmdb.org/t/p/w400/' + link.poster_path
       }
-    }
+    },
   },
 }
 </script>
@@ -36,16 +36,19 @@ export default {
       <div class="movie-picture">
         <img :src="imageUrl(movie)" alt="">
         <div class="movie-info">
-          <span>{{ movie.title }}</span>
+          <strong>{{ movie.title }}</strong>
           <span>Titolo Originale: {{ movie.original_title }}</span>
-          <span v-if="movie.original_language == 'en' ">Lingua originale: Inglese</span>
-          <span v-else-if="movie.original_language == 'ja'">Lingua originale: Giapponese</span>
-          <span v-else-if="movie.original_language == 'te'">Lingua originale: Tedesco</span>
-          <span v-else-if="movie.original_language == 'fr'">Lingua originale: Francese</span>
-          <span v-else-if="movie.original_language == 'it'">Lingua originale: Italiano</span>
-          <span v-else-if="movie.original_language == 'ko'">Lingua originale: Koreano</span>
-          <span v-else-if="movie.original_language == 'cn'">Lingua originale: Cinese</span>
-          <span>{{ movie.vote_average }}</span>
+          <div class="info-lang">
+            <span v-if="movie.original_language == 'en' ">Lingua originale: <img class="flag" src="/usa.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'ja'">Lingua originale: <img class="flag" src="/giappone.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'te'">Lingua originale: <img class="flag" src="/germania.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'fr'">Lingua originale: <img class="flag" src="/francia.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'it'">Lingua originale: <img class="flag" src="/italia.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'ko'">Lingua originale: <img class="flag" src="/korea.png" alt=""></span>
+            <span v-else-if="movie.original_language == 'cn'">Lingua originale: <img class="flag" src="/cina.png" alt=""></span>
+            <span v-else>Lingua originale: <img class="flag" src="/altro.png" alt=""></span>
+          </div>
+          <span>Voto: {{ Math.floor(movie.vote_average) }}</span>
         </div>
       </div>
     </div>
@@ -66,8 +69,20 @@ export default {
     .movie-info {
       display: flex;
       flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.377);
+      background-color: rgba(0, 0, 0, 0.801);
       display: none;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      .info-lang{
+        span{
+          display: flex;
+          gap: 5px;
+          .flag{
+            width: 20px;
+          }
+        }
+      }
     }
     &:hover .movie-info{
       display: flex;
