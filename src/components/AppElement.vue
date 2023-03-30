@@ -20,7 +20,7 @@ export default {
 <template>
   <div>
     <div class="cardMovie">
-      <div class="movie-info">
+      <div class="movie-info" v-if="this.store.frontBack">
         <span>{{ movie.title }}</span>
         <span>Titolo Originale: {{ movie.original_title }}</span>
         <span v-if="movie.original_language == 'en' ">Lingua originale: Inglese</span>
