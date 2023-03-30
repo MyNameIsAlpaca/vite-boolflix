@@ -13,6 +13,5 @@ export const store = reactive({
 
   APIfilteredSearch: '',
 
-  frontBack: true,
 
 });

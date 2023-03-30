@@ -22,6 +22,9 @@ export default {
 
       });
       },
+      backShowClass(index) {
+        this.store.moviesList[index].addClass
+      },
     },
 }
 </script>
@@ -31,7 +34,7 @@ export default {
     <input type="text" placeholder="Inserisci il nome di un film" v-model="this.store.searchInput">
     <button @click="updateMovieList(), $emit('userSearch')">Cerca</button>
     <div class="movie-container">
-      <AppElement :movie="movie" v-for="movie in this.store.moviesList"></AppElement>
+      <AppElement :movie="movie" v-for="(movie, index) in this.store.moviesList"></AppElement>
     </div>
   </div>
 </template>
