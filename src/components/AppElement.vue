@@ -48,7 +48,8 @@ export default {
             <span v-else-if="movie.original_language == 'cn'">Lingua originale: <img class="flag" src="/cina.png" alt=""></span>
             <span v-else>Lingua originale: <img class="flag" src="/altro.png" alt=""></span>
           </div>
-          <span>Voto: {{ Math.floor(movie.vote_average) }}</span>
+          <span v-if="movie.vote_average == 0">Voto: Non presente</span>
+          <span v-else>Voto: {{ Math.floor(movie.vote_average) }}</span>
         </div>
       </div>
     </div>
