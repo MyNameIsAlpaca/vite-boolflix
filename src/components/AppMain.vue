@@ -2,6 +2,7 @@
 import AppElement from "./AppElement.vue";
 import axios from "axios";
 import {store} from "../store.js";
+import AppElementTv from "./AppElementTv.vue";
 export default {
   name: "AppMain",
     data() {
@@ -10,7 +11,7 @@ export default {
         };
     },
 
-    components: { AppElement },
+    components: { AppElement, AppElementTv },
 
     methods: {
       updateMovieList(){
@@ -18,12 +19,20 @@ export default {
 
         this.store.moviesList = response.data.results
 
-        console.log(this.store.moviesList)
-
       });
       },
       backShowClass(index) {
         this.store.moviesList[index].addClass
+      },
+      updateTvList(){
+        axios.get(this.store.APITvBaseSearch + this.store.searchInput).then((res) => {
+
+        this.store.tvList = res.data.results
+
+      });
+      },
+      backShowClass(index) {
+        this.store.tvList[index].addClass
       },
     },
 }
@@ -32,8 +41,9 @@ export default {
 <template>
   <div>
     <input type="text" placeholder="Inserisci il nome di un film" v-model="this.store.searchInput">
-    <button @click="updateMovieList(), $emit('userSearch')">Cerca</button>
+    <button @click="updateTvList(), updateMovieList(), $emit('userSearch')">Cerca</button>
     <div class="movie-container">
+      <AppElementTv :tvSeries="tvSeries" v-for="(tvSeries, index) in this.store.tvList"></AppElementTv>
       <AppElement :movie="movie" v-for="(movie, index) in this.store.moviesList"></AppElement>
     </div>
   </div>
@@ -45,5 +55,6 @@ export default {
   flex-flow: row wrap;
   gap: 30px;
 }
+
 
 </style>
