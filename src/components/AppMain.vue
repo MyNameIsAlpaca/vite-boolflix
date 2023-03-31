@@ -27,8 +27,8 @@ export default {
 <template>
   <div>
     <div class="movie-container">
-      <AppElementTv :tvSeries="tvSeries" v-for="(tvSeries, index) in this.store.tvList"></AppElementTv>
-      <AppElement :movie="movie" v-for="(movie, index) in this.store.moviesList"></AppElement>
+      <AppElementTv v-if="this.store.chooseSection[1].active == true" :tvSeries="tvSeries" v-for="(tvSeries, index) in this.store.tvList"></AppElementTv>
+      <AppElement v-else-if="this.store.chooseSection[0].active == true" :movie="movie" v-for="(movie, index) in this.store.moviesList"></AppElement>
     </div>
   </div>
 </template>

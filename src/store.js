@@ -15,5 +15,21 @@ export const store = reactive({
 
   APIfilteredSearch: '',
 
+  chooseSection: [
+    {
+      name: 'Film',
+      active: true,
+    },
+    {
+      name: 'Serie TV',
+      active: false,
+    },
+    {
+      name: 'La tua lista',
+      active: false,
+    }
+   ],
+
+   activeSectionIndex: 0,
 
 });

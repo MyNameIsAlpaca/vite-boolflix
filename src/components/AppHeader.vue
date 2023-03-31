@@ -7,7 +7,7 @@ export default {
         return {
             store,
         };
-    },
+    }, 
 
     components: {  },
 
@@ -30,6 +30,32 @@ export default {
 
       });
     },
+    changeActiveSection(index){
+
+      if(index == 0) {
+        
+        this.store.chooseSection[index].active = true;
+
+        this.store.chooseSection[index + 1].active = false;
+
+        this.store.chooseSection[index + 2].active = false;
+      }else if (index == 1) {
+        this.store.chooseSection[index].active = true;
+
+        this.store.chooseSection[index + 1].active = false;
+
+        this.store.chooseSection[index - 1].active = false;
+
+      } else if (index == 2) {
+
+        this.store.chooseSection[index].active = true;
+
+        this.store.chooseSection[index - 1].active = false;
+
+        this.store.chooseSection[index - 2].active = false;
+      }
+
+    },
 }
 }
 </script>
@@ -38,9 +64,9 @@ export default {
   <div class="header">
     <div class="header-container">
       <div class="category">
-        <strong>Film</strong>
-        <strong>Serie Tv</strong>
-        <strong>La mia lista</strong>
+        <strong :class="section.active ? 'activeSection' : ''" @click="changeActiveSection(index)" v-for="(section , index) in this.store.chooseSection">
+        {{section.name}}
+        </strong>
       </div>
       <div class="logo-container">
         <img src="/Netflix.png" alt="logo netflix">
@@ -67,6 +93,9 @@ export default {
       gap: 20px;
       strong{
         cursor: pointer;
+      }
+      .activeSection{
+        color: red;
       }
     }
   }
