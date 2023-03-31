@@ -82,6 +82,8 @@ export default {
 <style scoped lang="scss">
 .header {
   height: 80px;
+  padding-bottom: 150px;
+  padding-top: 30px;
   .header-container{
     max-width: 1200px;
     margin: auto;

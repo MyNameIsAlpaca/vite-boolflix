@@ -26,9 +26,17 @@ export default {
 
 <template>
   <AppHeader></AppHeader>
-  <AppMain></AppMain>
+  <div class="containerAll">
+    <div class="main">
+      <AppMain></AppMain>
+    </div>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.containerAll{
+max-width: 1400px;
+margin: auto;
+}
 
 </style>

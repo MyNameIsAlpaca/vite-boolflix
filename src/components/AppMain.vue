@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <div class="movie-container">
       <AppElementTv v-if="this.store.chooseSection[1].active == true" :tvSeries="tvSeries" v-for="(tvSeries, index) in this.store.tvList"></AppElementTv>
       <AppElement v-else-if="this.store.chooseSection[0].active == true" :movie="movie" v-for="(movie, index) in this.store.moviesList"></AppElement>
@@ -37,7 +37,8 @@ export default {
 .movie-container{
   display: flex;
   flex-flow: row wrap;
-  gap: 30px;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 
