@@ -15,6 +15,10 @@ export default {
     tvSeries: Object,
   },
   methods: {
+    rankMovie(rank) {
+      return Math.floor(rank)
+    },
+
     imageUrl(link) {
       if(link.poster_path == null){
         if(link.backdrop_path == null){
@@ -49,7 +53,33 @@ export default {
             <span v-else>Lingua originale: <img class="flag" src="/altro.png" alt=""></span>
           </div>
           <span v-if="tvSeries.vote_average == 0">Voto: Non presente</span>
-          <span v-else>Voto: {{ Math.floor(tvSeries.vote_average) }}</span>
+          <span v-else>
+            <span v-if="rankMovie(tvSeries.vote_average) <= 2">
+              <i class="fa-solid fa-star"></i>
+            </span>
+            <span v-else-if="rankMovie(tvSeries.vote_average) <= 4">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </span>
+            <span v-else-if="rankMovie(tvSeries.vote_average) <= 6">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </span>
+            <span v-else-if="rankMovie(tvSeries.vote_average) <= 8">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </span>
+            <span v-else-if="rankMovie(tvSeries.vote_average) <= 10">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </span>
+          </span>
         </div>
       </div>
     </div>
