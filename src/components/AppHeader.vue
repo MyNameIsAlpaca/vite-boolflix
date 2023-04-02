@@ -11,6 +11,22 @@ export default {
 
     components: {  },
 
+    mounted() {
+
+      axios.get('https://api.themoviedb.org/3/movie/popular?api_key=eb4e7a09e599161c5a1e90c0010dd4bb').then((response) => {
+
+      this.store.moviesList = response.data.results
+
+      });
+
+      axios.get('https://api.themoviedb.org/3/tv/popular?api_key=eb4e7a09e599161c5a1e90c0010dd4bb').then((response) => {
+
+      this.store.tvList = response.data.results
+
+      });
+
+    },
+
     methods: {
       updateMovieList(){
         axios.get(this.store.APIbaseSearch + this.store.searchInput).then((response) => {
@@ -30,6 +46,10 @@ export default {
 
       });
     },
+    deleteMostWatch(){
+      this.store.mostWatch = false
+    },
+
     changeActiveSection(index){
 
       if(index == 0) {
@@ -73,7 +93,7 @@ export default {
       </div>
       <div class="search-container">
         <input @keyup.enter="updateTvList(), updateMovieList(), $emit('userSearch')" type="text" placeholder="Cerca qualcosa..." v-model="this.store.searchInput">
-        <button @click="updateTvList(), updateMovieList(), $emit('userSearch')">Cerca</button>
+        <button @click="deleteMostWatch(),updateTvList(), updateMovieList(), $emit('userSearch')">Cerca</button>
       </div>
     </div>
   </div>
@@ -84,6 +104,7 @@ export default {
   height: 80px;
   padding-bottom: 150px;
   padding-top: 30px;
+  background: linear-gradient(to top, transparent 0%, black 100%);
   .header-container{
     max-width: 1200px;
     margin: auto;

@@ -13,6 +13,8 @@ export const store = reactive({
 
   APITvBaseSearch: 'https://api.themoviedb.org/3/search/tv?api_key=eb4e7a09e599161c5a1e90c0010dd4bb&query=',
 
+  mostWatch: true,
+
   APIfilteredSearch: '',
 
   chooseSection: [
