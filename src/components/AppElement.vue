@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 import { objectToString } from "@vue/shared";
 import {store} from "../store.js";
 export default {
@@ -9,12 +10,40 @@ export default {
 
     return {
       store,
+      listCast: [],
+      showCast: false,
+      typeList: [],
     }
   },
   props: {
     movie: Object,
   },
   methods: {
+
+    createListCast() {
+
+      this.listCast = []
+
+      axios.get('https://api.themoviedb.org/3/movie/' + this.movie.id + '/credits?api_key=eb4e7a09e599161c5a1e90c0010dd4bb&query').then((response) => {
+
+        this.listCast = [response.data.cast[0].name, response.data.cast[1].name, response.data.cast[2].name, response.data.cast[3].name, response.data.cast[4].name]
+
+      });
+    },
+
+    typeOfMovie(){
+      this.typeList = []
+
+      axios.get('https://api.themoviedb.org/3/movie/' + this.movie.id + '?api_key=eb4e7a09e599161c5a1e90c0010dd4bb').then((response) => {
+
+        this.typeList = [response.data.genres[0].name]
+      });
+    },
+
+    movieId(){
+      return this.movie.id
+    },
+
     rankMovie(rank) {
       return Math.floor(rank)
     },
@@ -36,7 +65,7 @@ export default {
 
 <template>
   <div>
-    <div class="cardMovie">
+    <div class="cardMovie" @mouseleave="this.showCast = false">
       <div class="movie-picture">
         <img :src="imageUrl(movie)" alt="">
         <div class="movie-info">
@@ -80,6 +109,20 @@ export default {
               <i class="fa-solid fa-star"></i>
             </span>
           </span>
+          <button class="more-info" @click="this.showCast = !this.showCast, createListCast(), typeOfMovie()">Mostra più informazioni</button>
+          <div class="info" v-if="this.showCast">
+            <span v-if="this.showCast" class="cast-info">
+              <strong>Cast:</strong>
+               <span v-for="cast in this.listCast">
+                {{cast}}
+               </span>
+              </span>
+              <strong>Genere:</strong>
+              <span v-for="genres in this.typeList">
+              {{ genres }}
+              </span>
+            <button class="more-info" @click="this.showCast = !this.showCast">Mostra meno informazioni</button>
+          </div>
         </div>
       </div>
     </div>
@@ -105,6 +148,26 @@ export default {
       justify-content: space-around;
       align-items: center;
       text-align: center;
+      .more-info{
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+        width: 100%;
+        padding: 10px 0px;
+      }
+      .info{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .cast-info{
+          display: flex;
+          flex-direction: column;
+        }
+      }
       .info-lang{
         span{
           display: flex;
